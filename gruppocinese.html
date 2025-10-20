@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lingua Cinese</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            box-sizing: border-box;
+        }
+        .chinese-text {
+            font-family: 'SimSun', '宋体', serif;
+        }
+        .fade-in {
+            animation: fadeIn 0.3s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-red-50 to-yellow-50 min-h-full">
+    <div class="min-h-full">
+        <!-- Header -->
+        <header class="bg-red-600 text-white shadow-lg">
+            <div class="max-w-6xl mx-auto px-4 py-6">
+                <h1 class="text-3xl font-bold flex items-center gap-3">
+                    <span class="text-4xl">🏮</span>
+                Lingua Cinese
+                    <span class="chinese-text text-2xl ml-2">中文学习</span>
+                </h1>
+
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="bg-white shadow-md sticky top-0 z-10">
+            <div class="max-w-6xl mx-auto px-4">
+                <div class="flex flex-col lg:flex-row lg:justify-between lg:items-center">
+                    <div class="flex flex-wrap justify-center lg:justify-start">
+                        <button onclick="showSection('esercizi')" class="nav-btn px-3 lg:px-6 py-3 font-medium text-gray-700 hover:text-red-600 hover:bg-red-50 border-b-2 border-transparent hover:border-red-600 transition-all text-sm lg:text-base" id="nav-esercizi">
+                            📝 Esercizi
+                        </button>
+                        <button onclick="showSection('grammatica')" class="nav-btn px-3 lg:px-6 py-3 font-medium text-gray-700 hover:text-red-600 hover:bg-red-50 border-b-2 border-transparent hover:border-red-600 transition-all text-sm lg:text-base" id="nav-grammatica">
+                            📚 Grammatica
+                        </button>
+                        <button onclick="showSection('vocabolario')" class="nav-btn px-3 lg:px-6 py-3 font-medium text-gray-700 hover:text-red-600 hover:bg-red-50 border-b-2 border-transparent hover:border-red-600 transition-all text-sm lg:text-base" id="nav-vocabolario">
+                            🔤 Vocabolario
+                        </button>
+                        <button onclick="showSection('materiali')" class="nav-btn px-3 lg:px-6 py-3 font-medium text-gray-700 hover:text-red-600 hover:bg-red-50 border-b-2 border-transparent hover:border-red-600 transition-all text-sm lg:text-base" id="nav-materiali">
+                            📁 Materiali
+                        </button>
+                    </div>
+                    <div class="flex items-center justify-center gap-2 py-2 lg:py-0">
+                        <button onclick="showShareModal()" class="bg-red-600 text-white px-3 lg:px-4 py-2 rounded-md hover:bg-red-700 transition-colors text-xs lg:text-sm font-medium">
+                            🔗 Condividi
+                        </button>
+                        <button onclick="showImportModal()" class="bg-green-600 text-white px-3 lg:px-4 py-2 rounded-md hover:bg-green-700 transition-colors text-xs lg:text-sm font-medium">
+                            📥 Importa
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <main class="max-w-6xl mx-auto px-4 py-8">
+            <!-- Sezione Esercizi -->
+            <div id="section-esercizi" class="section">
+                <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                        📝 Condividi Esercizi
+                    </h2>
+                    <form onsubmit="addExercise(event)" class="space-y-4">
+                        <div>
+                            <label for="exercise-title" class="block text-sm font-medium text-gray-700 mb-1">Titolo Esercizio</label>
+                            <input type="text" id="exercise-title" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="Es: Toni del Mandarino - Lezione 3" required>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="exercise-level" class="block text-sm font-medium text-gray-700 mb-1">Livello</label>
+                                <select id="exercise-level" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500">
+                                    <option value="Principiante">Principiante (HSK 1-2)</option>
+                                    <option value="Intermedio">Intermedio (HSK 3-4)</option>
+                                    <option value="Avanzato">Avanzato (HSK 5-6)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="exercise-author" class="block text-sm font-medium text-gray-700 mb-1">Condiviso da</label>
+                                <input type="text" id="exercise-author" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="Il tuo nome" required>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="exercise-content" class="block text-sm font-medium text-gray-700 mb-1">Contenuto Esercizio</label>
+                            <textarea id="exercise-content" rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="Descrivi l'esercizio, includi caratteri cinesi, pinyin e traduzioni..." required></textarea>
+                        </div>
+                        <button type="submit" class="bg-red-600 text-white px-6 py-2 rounded-md hover:bg-red-700 transition-colors font-medium">
+                            Aggiungi Esercizio
+                        </button>
+                    </form>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Esercizi Condivisi</h3>
+                    <div id="exercises-list" class="space-y-4">
+                        <!-- Gli esercizi verranno caricati qui -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sezione Grammatica -->
+            <div id="section-grammatica" class="section hidden">
+                <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                        📚 Condividi Regole Grammaticali
+                    </h2>
+                    <form onsubmit="addGrammar(event)" class="space-y-4">
+                        <div>
+                            <label for="grammar-topic" class="block text-sm font-medium text-gray-700 mb-1">Argomento Grammaticale</label>
+                            <input type="text" id="grammar-topic" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="Es: Particella 了 (le)" required>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="grammar-level" class="block text-sm font-medium text-gray-700 mb-1">Livello</label>
+                                <select id="grammar-level" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500">
+                                    <option value="Principiante">Principiante</option>
+                                    <option value="Intermedio">Intermedio</option>
+                                    <option value="Avanzato">Avanzato</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="grammar-author" class="block text-sm font-medium text-gray-700 mb-1">Condiviso da</label>
+                                <input type="text" id="grammar-author" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="Il tuo nome" required>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="grammar-explanation" class="block text-sm font-medium text-gray-700 mb-1">Spiegazione</label>
+                            <textarea id="grammar-explanation" rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="Spiega la regola grammaticale con esempi..." required></textarea>
+                        </div>
+                        <button type="submit" class="bg-red-600 text-white px-6 py-2 rounded-md hover:bg-red-700 transition-colors font-medium">
+                            Aggiungi Regola
+                        </button>
+                    </form>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Regole Grammaticali</h3>
+                    <div id="grammar-list" class="space-y-4">
+                        <!-- Le regole grammaticali verranno caricate qui -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sezione Vocabolario -->
+            <div id="section-vocabolario" class="section hidden">
+                <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                        🔤 Condividi Vocabolario
+                    </h2>
+                    <form onsubmit="addVocabulary(event)" class="space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div>
+                                <label for="vocab-chinese" class="block text-sm font-medium text-gray-700 mb-1">Carattere Cinese</label>
+                                <input type="text" id="vocab-chinese" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 chinese-text text-lg" placeholder="你好" required>
+                            </div>
+                            <div>
+                                <label for="vocab-pinyin" class="block text-sm font-medium text-gray-700 mb-1">Pinyin</label>
+                                <input type="text" id="vocab-pinyin" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="nǐ hǎo" required>
+                            </div>
+                            <div>
+                                <label for="vocab-italian" class="block text-sm font-medium text-gray-700 mb-1">Traduzione Italiana</label>
+                                <input type="text" id="vocab-italian" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="ciao" required>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="vocab-category" class="block text-sm font-medium text-gray-700 mb-1">Categoria</label>
+                                <select id="vocab-category" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500">
+                                    <option value="Saluti">Saluti</option>
+                                    <option value="Famiglia">Famiglia</option>
+                                    <option value="Cibo">Cibo</option>
+                                    <option value="Colori">Colori</option>
+                                    <option value="Numeri">Numeri</option>
+                                    <option value="Tempo">Tempo</option>
+                                    <option value="Altro">Altro</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="vocab-author" class="block text-sm font-medium text-gray-700 mb-1">Condiviso da</label>
+                                <input type="text" id="vocab-author" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="Il tuo nome" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="bg-red-600 text-white px-6 py-2 rounded-md hover:bg-red-700 transition-colors font-medium">
+                            Aggiungi Parola
+                        </button>
+                    </form>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Vocabolario Condiviso</h3>
+                    <div class="mb-4">
+                        <select onchange="filterVocabulary(this.value)" class="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500">
+                            <option value="">Tutte le categorie</option>
+                            <option value="Saluti">Saluti</option>
+                            <option value="Famiglia">Famiglia</option>
+                            <option value="Cibo">Cibo</option>
+                            <option value="Colori">Colori</option>
+                            <option value="Numeri">Numeri</option>
+                            <option value="Tempo">Tempo</option>
+                            <option value="Altro">Altro</option>
+                        </select>
+                    </div>
+                    <div id="vocabulary-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <!-- Il vocabolario verrà caricato qui -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sezione Materiali -->
+            <div id="section-materiali" class="section hidden">
+                <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                        📁 Condividi Materiali di Studio
+                    </h2>
+                    <form onsubmit="addMaterial(event)" class="space-y-4">
+                        <div>
+                            <label for="material-title" class="block text-sm font-medium text-gray-700 mb-1">Titolo Materiale</label>
+                            <input type="text" id="material-title" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="Es: Video sui Toni del Mandarino" required>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="material-type" class="block text-sm font-medium text-gray-700 mb-1">Tipo di Materiale</label>
+                                <select id="material-type" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500">
+                                    <option value="Video">Video</option>
+                                    <option value="PDF">PDF</option>
+                                    <option value="Link">Link Utile</option>
+                                    <option value="App">App Consigliata</option>
+                                    <option value="Libro">Libro</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="material-author" class="block text-sm font-medium text-gray-700 mb-1">Condiviso da</label>
+                                <input type="text" id="material-author" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="Il tuo nome" required>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="material-description" class="block text-sm font-medium text-gray-700 mb-1">Descrizione</label>
+                            <textarea id="material-description" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="Descrivi il materiale e perché è utile..." required></textarea>
+                        </div>
+                        <div>
+                            <label for="material-link" class="block text-sm font-medium text-gray-700 mb-1">Link (opzionale)</label>
+                            <input type="url" id="material-link" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="https://...">
+                        </div>
+                        <button type="submit" class="bg-red-600 text-white px-6 py-2 rounded-md hover:bg-red-700 transition-colors font-medium">
+                            Aggiungi Materiale
+                        </button>
+                    </form>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Materiali Condivisi</h3>
+                    <div id="materials-list" class="space-y-4">
+                        <!-- I materiali verranno caricati qui -->
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Sistema di archiviazione dati
+        let exercises = JSON.parse(localStorage.getItem('chineseExercises') || '[]');
+        let grammar = JSON.parse(localStorage.getItem('chineseGrammar') || '[]');
+        let vocabulary = JSON.parse(localStorage.getItem('chineseVocabulary') || '[]');
+        let materials = JSON.parse(localStorage.getItem('chineseMaterials') || '[]');
+
+        // Gestione navigazione
+        function showSection(sectionName) {
+            // Nascondi tutte le sezioni
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.add('hidden');
+            });
+            
+            // Rimuovi classe attiva da tutti i bottoni nav
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('text-red-600', 'border-red-600', 'bg-red-50');
+            });
+            
+            // Mostra sezione selezionata
+            document.getElementById(`section-${sectionName}`).classList.remove('hidden');
+            document.getElementById(`section-${sectionName}`).classList.add('fade-in');
+            
+            // Attiva bottone nav
+            const activeBtn = document.getElementById(`nav-${sectionName}`);
+            activeBtn.classList.add('text-red-600', 'border-red-600', 'bg-red-50');
+            
+            // Carica contenuti della sezione
+            loadSectionContent(sectionName);
+        }
+
+        function loadSectionContent(sectionName) {
+            switch(sectionName) {
+                case 'esercizi':
+                    displayExercises();
+                    break;
+                case 'grammatica':
+                    displayGrammar();
+                    break;
+                case 'vocabolario':
+                    displayVocabulary();
+                    break;
+                case 'materiali':
+                    displayMaterials();
+                    break;
+            }
+        }
+
+        // Funzioni di visualizzazione
+        function displayExercises() {
+            const container = document.getElementById('exercises-list');
+            if (exercises.length === 0) {
+                container.innerHTML = '<p class="text-gray-500 text-center py-8">Nessun esercizio condiviso ancora. Aggiungi il primo!</p>';
+                return;
+            }
+            
+            container.innerHTML = exercises.map((exercise, index) => `
+                <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                    <div class="flex justify-between items-start mb-2">
+                        <h4 class="font-semibold text-lg text-gray-800">${exercise.title}</h4>
+                        <div class="flex items-center gap-2">
+                            <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-sm">${exercise.level}</span>
+                            <button onclick="viewExercise(${index})" class="text-blue-600 hover:text-blue-800 text-sm">👁️ Visualizza</button>
+                            <button onclick="editExercise(${index})" class="text-yellow-600 hover:text-yellow-800 text-sm">✏️ Modifica</button>
+                            <button onclick="deleteExercise(${index})" class="text-red-600 hover:text-red-800 text-sm">🗑️ Elimina</button>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-3">${exercise.content.substring(0, 100)}${exercise.content.length > 100 ? '...' : ''}</p>
+                    <div class="flex justify-between items-center text-sm text-gray-500">
+                        <span>Condiviso da: ${exercise.author}</span>
+                        <span>${exercise.date}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function displayGrammar() {
+            const container = document.getElementById('grammar-list');
+            if (grammar.length === 0) {
+                container.innerHTML = '<p class="text-gray-500 text-center py-8">Nessuna regola grammaticale condivisa ancora. Aggiungi la prima!</p>';
+                return;
+            }
+            
+            container.innerHTML = grammar.map((rule, index) => `
+                <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                    <div class="flex justify-between items-start mb-2">
+                        <h4 class="font-semibold text-lg text-gray-800">${rule.topic}</h4>
+                        <div class="flex items-center gap-2">
+                            <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-sm">${rule.level}</span>
+                            <button onclick="viewGrammar(${index})" class="text-blue-600 hover:text-blue-800 text-sm">👁️ Visualizza</button>
+                            <button onclick="editGrammar(${index})" class="text-yellow-600 hover:text-yellow-800 text-sm">✏️ Modifica</button>
+                            <button onclick="deleteGrammar(${index})" class="text-red-600 hover:text-red-800 text-sm">🗑️ Elimina</button>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-3">${rule.explanation.substring(0, 100)}${rule.explanation.length > 100 ? '...' : ''}</p>
+                    <div class="flex justify-between items-center text-sm text-gray-500">
+                        <span>Condiviso da: ${rule.author}</span>
+                        <span>${rule.date}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function displayVocabulary() {
+            const container = document.getElementById('vocabulary-list');
+            if (vocabulary.length === 0) {
+                container.innerHTML = '<p class="text-gray-500 text-center py-8 col-span-full">Nessuna parola condivisa ancora. Aggiungi la prima!</p>';
+                return;
+            }
+            
+            container.innerHTML = vocabulary.map((word, index) => `
+                <div class="vocab-item border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow" data-category="${word.category}">
+                    <div class="chinese-text text-2xl font-bold text-center mb-2">${word.chinese}</div>
+                    <div class="text-center text-gray-600 mb-1">${word.pinyin}</div>
+                    <div class="text-center font-medium mb-2">${word.italian}</div>
+                    <div class="flex justify-between items-center text-xs text-gray-500 mb-2">
+                        <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded">${word.category}</span>
+                        <span>${word.author}</span>
+                    </div>
+                    <div class="flex justify-center gap-2">
+                        <button onclick="editVocabulary(${index})" class="text-yellow-600 hover:text-yellow-800 text-xs">✏️</button>
+                        <button onclick="deleteVocabulary(${index})" class="text-red-600 hover:text-red-800 text-xs">🗑️</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function displayMaterials() {
+            const container = document.getElementById('materials-list');
+            if (materials.length === 0) {
+                container.innerHTML = '<p class="text-gray-500 text-center py-8">Nessun materiale condiviso ancora. Aggiungi il primo!</p>';
+                return;
+            }
+            
+            container.innerHTML = materials.map((material, index) => `
+                <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                    <div class="flex justify-between items-start mb-2">
+                        <h4 class="font-semibold text-lg text-gray-800">${material.title}</h4>
+                        <div class="flex items-center gap-2">
+                            <span class="bg-indigo-100 text-indigo-800 px-2 py-1 rounded-full text-sm">${material.type}</span>
+                            <button onclick="editMaterial(${index})" class="text-yellow-600 hover:text-yellow-800 text-sm">✏️ Modifica</button>
+                            <button onclick="deleteMaterial(${index})" class="text-red-600 hover:text-red-800 text-sm">🗑️ Elimina</button>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-3">${material.description}</p>
+                    <div class="flex justify-between items-center text-sm text-gray-500">
+                        <span>Condiviso da: ${material.author}</span>
+                        <div class="flex items-center gap-2">
+                            ${material.link ? `<a href="${material.link}" target="_blank" rel="noopener noreferrer" class="text-red-600 hover:text-red-700">Vai al link →</a>` : ''}
+                            <span>${material.date}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Funzioni per aggiungere contenuti
+        function addExercise(event) {
+            event.preventDefault();
+            
+            const exercise = {
+                id: Date.now(),
+                title: document.getElementById('exercise-title').value,
+                level: document.getElementById('exercise-level').value,
+                author: document.getElementById('exercise-author').value,
+                content: document.getElementById('exercise-content').value,
+                date: new Date().toLocaleDateString('it-IT')
+            };
+            
+            exercises.unshift(exercise);
+            localStorage.setItem('chineseExercises', JSON.stringify(exercises));
+            displayExercises();
+            event.target.reset();
+        }
+
+        function addGrammar(event) {
+            event.preventDefault();
+            
+            const rule = {
+                id: Date.now(),
+                topic: document.getElementById('grammar-topic').value,
+                level: document.getElementById('grammar-level').value,
+                author: document.getElementById('grammar-author').value,
+                explanation: document.getElementById('grammar-explanation').value,
+                date: new Date().toLocaleDateString('it-IT')
+            };
+            
+            grammar.unshift(rule);
+            localStorage.setItem('chineseGrammar', JSON.stringify(grammar));
+            displayGrammar();
+            event.target.reset();
+        }
+
+        function addVocabulary(event) {
+            event.preventDefault();
+            
+            const word = {
+                id: Date.now(),
+                chinese: document.getElementById('vocab-chinese').value,
+                pinyin: document.getElementById('vocab-pinyin').value,
+                italian: document.getElementById('vocab-italian').value,
+                category: document.getElementById('vocab-category').value,
+                author: document.getElementById('vocab-author').value,
+                date: new Date().toLocaleDateString('it-IT')
+            };
+            
+            vocabulary.unshift(word);
+            localStorage.setItem('chineseVocabulary', JSON.stringify(vocabulary));
+            displayVocabulary();
+            event.target.reset();
+        }
+
+        function addMaterial(event) {
+            event.preventDefault();
+            
+            const material = {
+                id: Date.now(),
+                title: document.getElementById('material-title').value,
+                type: document.getElementById('material-type').value,
+                author: document.getElementById('material-author').value,
+                description: document.getElementById('material-description').value,
+                link: document.getElementById('material-link').value,
+                date: new Date().toLocaleDateString('it-IT')
+            };
+            
+            materials.unshift(material);
+            localStorage.setItem('chineseMaterials', JSON.stringify(materials));
+            displayMaterials();
+            event.target.reset();
+        }
+
+        // Funzioni di visualizzazione dettagliata
+        function viewExercise(index) {
+            const exercise = exercises[index];
+            showModal(`
+                <h3 class="text-xl font-bold mb-4">${exercise.title}</h3>
+                <div class="mb-4">
+                    <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-sm">${exercise.level}</span>
+                </div>
+                <div class="mb-4 whitespace-pre-wrap chinese-text text-lg">${exercise.content}</div>
+                <div class="text-sm text-gray-500">
+                    <p>Condiviso da: ${exercise.author}</p>
+                    <p>Data: ${exercise.date}</p>
+                </div>
+            `);
+        }
+
+        function viewGrammar(index) {
+            const rule = grammar[index];
+            showModal(`
+                <h3 class="text-xl font-bold mb-4">${rule.topic}</h3>
+                <div class="mb-4">
+                    <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-sm">${rule.level}</span>
+                </div>
+                <div class="mb-4 whitespace-pre-wrap chinese-text text-lg">${rule.explanation}</div>
+                <div class="text-sm text-gray-500">
+                    <p>Condiviso da: ${rule.author}</p>
+                    <p>Data: ${rule.date}</p>
+                </div>
+            `);
+        }
+
+        // Funzioni di modifica
+        function editExercise(index) {
+            const exercise = exercises[index];
+            showEditModal('Modifica Esercizio', `
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Titolo</label>
+                        <input type="text" id="edit-title" value="${exercise.title}" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Livello</label>
+                        <select id="edit-level" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                            <option value="Principiante" ${exercise.level === 'Principiante' ? 'selected' : ''}>Principiante</option>
+                            <option value="Intermedio" ${exercise.level === 'Intermedio' ? 'selected' : ''}>Intermedio</option>
+                            <option value="Avanzato" ${exercise.level === 'Avanzato' ? 'selected' : ''}>Avanzato</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Contenuto</label>
+                        <textarea id="edit-content" rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-md">${exercise.content}</textarea>
+                    </div>
+                </div>
+            `, () => {
+                exercises[index] = {
+                    ...exercise,
+                    title: document.getElementById('edit-title').value,
+                    level: document.getElementById('edit-level').value,
+                    content: document.getElementById('edit-content').value
+                };
+                localStorage.setItem('chineseExercises', JSON.stringify(exercises));
+                displayExercises();
+            });
+        }
+
+        function editGrammar(index) {
+            const rule = grammar[index];
+            showEditModal('Modifica Regola Grammaticale', `
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Argomento</label>
+                        <input type="text" id="edit-topic" value="${rule.topic}" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Livello</label>
+                        <select id="edit-level" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                            <option value="Principiante" ${rule.level === 'Principiante' ? 'selected' : ''}>Principiante</option>
+                            <option value="Intermedio" ${rule.level === 'Intermedio' ? 'selected' : ''}>Intermedio</option>
+                            <option value="Avanzato" ${rule.level === 'Avanzato' ? 'selected' : ''}>Avanzato</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Spiegazione</label>
+                        <textarea id="edit-explanation" rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-md">${rule.explanation}</textarea>
+                    </div>
+                </div>
+            `, () => {
+                grammar[index] = {
+                    ...rule,
+                    topic: document.getElementById('edit-topic').value,
+                    level: document.getElementById('edit-level').value,
+                    explanation: document.getElementById('edit-explanation').value
+                };
+                localStorage.setItem('chineseGrammar', JSON.stringify(grammar));
+                displayGrammar();
+            });
+        }
+
+        function editVocabulary(index) {
+            const word = vocabulary[index];
+            showEditModal('Modifica Parola', `
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Carattere Cinese</label>
+                        <input type="text" id="edit-chinese" value="${word.chinese}" class="w-full px-3 py-2 border border-gray-300 rounded-md chinese-text">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Pinyin</label>
+                        <input type="text" id="edit-pinyin" value="${word.pinyin}" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Traduzione</label>
+                        <input type="text" id="edit-italian" value="${word.italian}" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Categoria</label>
+                        <select id="edit-category" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                            <option value="Saluti" ${word.category === 'Saluti' ? 'selected' : ''}>Saluti</option>
+                            <option value="Famiglia" ${word.category === 'Famiglia' ? 'selected' : ''}>Famiglia</option>
+                            <option value="Cibo" ${word.category === 'Cibo' ? 'selected' : ''}>Cibo</option>
+                            <option value="Colori" ${word.category === 'Colori' ? 'selected' : ''}>Colori</option>
+                            <option value="Numeri" ${word.category === 'Numeri' ? 'selected' : ''}>Numeri</option>
+                            <option value="Tempo" ${word.category === 'Tempo' ? 'selected' : ''}>Tempo</option>
+                            <option value="Altro" ${word.category === 'Altro' ? 'selected' : ''}>Altro</option>
+                        </select>
+                    </div>
+                </div>
+            `, () => {
+                vocabulary[index] = {
+                    ...word,
+                    chinese: document.getElementById('edit-chinese').value,
+                    pinyin: document.getElementById('edit-pinyin').value,
+                    italian: document.getElementById('edit-italian').value,
+                    category: document.getElementById('edit-category').value
+                };
+                localStorage.setItem('chineseVocabulary', JSON.stringify(vocabulary));
+                displayVocabulary();
+            });
+        }
+
+        function editMaterial(index) {
+            const material = materials[index];
+            showEditModal('Modifica Materiale', `
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Titolo</label>
+                        <input type="text" id="edit-title" value="${material.title}" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Tipo</label>
+                        <select id="edit-type" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                            <option value="Video" ${material.type === 'Video' ? 'selected' : ''}>Video</option>
+                            <option value="PDF" ${material.type === 'PDF' ? 'selected' : ''}>PDF</option>
+                            <option value="Link" ${material.type === 'Link' ? 'selected' : ''}>Link Utile</option>
+                            <option value="App" ${material.type === 'App' ? 'selected' : ''}>App Consigliata</option>
+                            <option value="Libro" ${material.type === 'Libro' ? 'selected' : ''}>Libro</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Descrizione</label>
+                        <textarea id="edit-description" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-md">${material.description}</textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Link</label>
+                        <input type="url" id="edit-link" value="${material.link || ''}" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                    </div>
+                </div>
+            `, () => {
+                materials[index] = {
+                    ...material,
+                    title: document.getElementById('edit-title').value,
+                    type: document.getElementById('edit-type').value,
+                    description: document.getElementById('edit-description').value,
+                    link: document.getElementById('edit-link').value
+                };
+                localStorage.setItem('chineseMaterials', JSON.stringify(materials));
+                displayMaterials();
+            });
+        }
+
+        // Funzioni di eliminazione
+        function deleteExercise(index) {
+            showConfirmModal('Eliminare questo esercizio?', 'Questa azione non può essere annullata.', () => {
+                exercises.splice(index, 1);
+                localStorage.setItem('chineseExercises', JSON.stringify(exercises));
+                displayExercises();
+            });
+        }
+
+        function deleteGrammar(index) {
+            showConfirmModal('Eliminare questa regola grammaticale?', 'Questa azione non può essere annullata.', () => {
+                grammar.splice(index, 1);
+                localStorage.setItem('chineseGrammar', JSON.stringify(grammar));
+                displayGrammar();
+            });
+        }
+
+        function deleteVocabulary(index) {
+            showConfirmModal('Eliminare questa parola?', 'Questa azione non può essere annullata.', () => {
+                vocabulary.splice(index, 1);
+                localStorage.setItem('chineseVocabulary', JSON.stringify(vocabulary));
+                displayVocabulary();
+            });
+        }
+
+        function deleteMaterial(index) {
+            showConfirmModal('Eliminare questo materiale?', 'Questa azione non può essere annullata.', () => {
+                materials.splice(index, 1);
+                localStorage.setItem('chineseMaterials', JSON.stringify(materials));
+                displayMaterials();
+            });
+        }
+
+        function filterVocabulary(category) {
+            const items = document.querySelectorAll('.vocab-item');
+            items.forEach(item => {
+                if (category === '' || item.dataset.category === category) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Sistema di modali
+        function showModal(content) {
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+            modal.innerHTML = `
+                <div class="bg-white rounded-lg p-6 max-w-2xl w-full mx-4 max-h-[80vh] overflow-y-auto">
+                    ${content}
+                    <div class="mt-6 flex justify-end">
+                        <button onclick="this.closest('.fixed').remove()" class="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600">
+                            Chiudi
+                        </button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+
+        function showEditModal(title, content, onSave) {
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+            modal.innerHTML = `
+                <div class="bg-white rounded-lg p-6 max-w-2xl w-full mx-4 max-h-[80vh] overflow-y-auto">
+                    <h3 class="text-xl font-bold mb-4">${title}</h3>
+                    ${content}
+                    <div class="mt-6 flex justify-end gap-2">
+                        <button onclick="this.closest('.fixed').remove()" class="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600">
+                            Annulla
+                        </button>
+                        <button onclick="saveAndClose(this, arguments[0])" class="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700">
+                            Salva
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            const saveButton = modal.querySelector('button:last-child');
+            saveButton.onclick = () => {
+                onSave();
+                modal.remove();
+            };
+            
+            document.body.appendChild(modal);
+        }
+
+        function showConfirmModal(title, message, onConfirm) {
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+            modal.innerHTML = `
+                <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4">
+                    <h3 class="text-xl font-bold mb-4 text-red-600">${title}</h3>
+                    <p class="text-gray-600 mb-6">${message}</p>
+                    <div class="flex justify-end gap-2">
+                        <button onclick="this.closest('.fixed').remove()" class="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600">
+                            Annulla
+                        </button>
+                        <button onclick="confirmAndClose(this, arguments[0])" class="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700">
+                            Elimina
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            const confirmButton = modal.querySelector('button:last-child');
+            confirmButton.onclick = () => {
+                onConfirm();
+                modal.remove();
+            };
+            
+            document.body.appendChild(modal);
+        }
+
+        // Funzioni di condivisione dati
+        function showShareModal() {
+            const allData = {
+                exercises: exercises,
+                grammar: grammar,
+                vocabulary: vocabulary,
+                materials: materials,
+                exportDate: new Date().toISOString(),
+                version: "1.0"
+            };
+            
+            const dataString = JSON.stringify(allData, null, 2);
+            
+            showModal(`
+                <h3 class="text-xl font-bold mb-4">🔗 Condividi i Tuoi Dati</h3>
+                <p class="text-gray-600 mb-4">Copia questo codice e condividilo con i membri del tuo gruppo. Loro potranno importarlo per avere tutti i tuoi contenuti.</p>
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Codice di Condivisione:</label>
+                    <textarea id="share-code" readonly class="w-full h-40 px-3 py-2 border border-gray-300 rounded-md bg-gray-50 text-sm font-mono" onclick="this.select()">${dataString}</textarea>
+                </div>
+                <div class="flex gap-2 mb-4">
+                    <button onclick="copyShareCode()" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 text-sm">
+                        📋 Copia Codice
+                    </button>
+                    <button onclick="downloadData()" class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 text-sm">
+                        💾 Scarica File
+                    </button>
+                </div>
+                <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
+                    <p class="text-sm text-yellow-800">
+                        <strong>💡 Come condividere:</strong><br>
+                        1. Copia il codice sopra<br>
+                        2. Invialo ai tuoi compagni di studio (WhatsApp, email, ecc.)<br>
+                        3. Loro dovranno cliccare "Importa Dati" e incollare il codice
+                    </p>
+                </div>
+            `);
+        }
+
+        function showImportModal() {
+            showModal(`
+                <h3 class="text-xl font-bold mb-4">📥 Importa Dati del Gruppo</h3>
+                <p class="text-gray-600 mb-4">Incolla qui il codice di condivisione ricevuto da un compagno di studio per importare i suoi contenuti.</p>
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Codice di Condivisione:</label>
+                    <textarea id="import-code" class="w-full h-40 px-3 py-2 border border-gray-300 rounded-md text-sm font-mono" placeholder="Incolla qui il codice ricevuto..."></textarea>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Modalità di Importazione:</label>
+                    <select id="import-mode" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                        <option value="merge">Unisci ai miei dati (consigliato)</option>
+                        <option value="replace">Sostituisci tutti i miei dati</option>
+                    </select>
+                </div>
+                <div class="flex gap-2 mb-4">
+                    <button onclick="importData()" class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700">
+                        📥 Importa
+                    </button>
+                    <input type="file" id="file-input" accept=".json" style="display: none" onchange="importFromFile(this)">
+                    <button onclick="document.getElementById('file-input').click()" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+                        📁 Carica File
+                    </button>
+                </div>
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-3">
+                    <p class="text-sm text-blue-800">
+                        <strong>ℹ️ Modalità di importazione:</strong><br>
+                        • <strong>Unisci:</strong> Aggiunge i nuovi contenuti a quelli esistenti<br>
+                        • <strong>Sostituisci:</strong> Cancella tutto e importa solo i nuovi dati
+                    </p>
+                </div>
+            `);
+        }
+
+        function copyShareCode() {
+            const textarea = document.getElementById('share-code');
+            textarea.select();
+            document.execCommand('copy');
+            
+            // Mostra feedback visivo
+            const button = event.target;
+            const originalText = button.textContent;
+            button.textContent = '✅ Copiato!';
+            button.className = button.className.replace('bg-blue-600 hover:bg-blue-700', 'bg-green-600 hover:bg-green-700');
+            
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.className = button.className.replace('bg-green-600 hover:bg-green-700', 'bg-blue-600 hover:bg-blue-700');
+            }, 2000);
+        }
+
+        function downloadData() {
+            const allData = {
+                exercises: exercises,
+                grammar: grammar,
+                vocabulary: vocabulary,
+                materials: materials,
+                exportDate: new Date().toISOString(),
+                version: "1.0"
+            };
+            
+            const dataString = JSON.stringify(allData, null, 2);
+            const blob = new Blob([dataString], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `studio-cinese-${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function importData() {
+            const code = document.getElementById('import-code').value.trim();
+            const mode = document.getElementById('import-mode').value;
+            
+            if (!code) {
+                showErrorMessage('Inserisci il codice di condivisione');
+                return;
+            }
+            
+            try {
+                const importedData = JSON.parse(code);
+                
+                // Verifica che i dati siano validi
+                if (!importedData.exercises || !importedData.grammar || !importedData.vocabulary || !importedData.materials) {
+                    throw new Error('Formato dati non valido');
+                }
+                
+                if (mode === 'replace') {
+                    // Sostituisci tutti i dati
+                    exercises = importedData.exercises || [];
+                    grammar = importedData.grammar || [];
+                    vocabulary = importedData.vocabulary || [];
+                    materials = importedData.materials || [];
+                } else {
+                    // Unisci i dati (evita duplicati basandosi sull'ID)
+                    const existingExerciseIds = new Set(exercises.map(e => e.id));
+                    const existingGrammarIds = new Set(grammar.map(g => g.id));
+                    const existingVocabIds = new Set(vocabulary.map(v => v.id));
+                    const existingMaterialIds = new Set(materials.map(m => m.id));
+                    
+                    importedData.exercises.forEach(ex => {
+                        if (!existingExerciseIds.has(ex.id)) {
+                            exercises.push(ex);
+                        }
+                    });
+                    
+                    importedData.grammar.forEach(gr => {
+                        if (!existingGrammarIds.has(gr.id)) {
+                            grammar.push(gr);
+                        }
+                    });
+                    
+                    importedData.vocabulary.forEach(voc => {
+                        if (!existingVocabIds.has(voc.id)) {
+                            vocabulary.push(voc);
+                        }
+                    });
+                    
+                    importedData.materials.forEach(mat => {
+                        if (!existingMaterialIds.has(mat.id)) {
+                            materials.push(mat);
+                        }
+                    });
+                }
+                
+                // Salva i dati aggiornati
+                localStorage.setItem('chineseExercises', JSON.stringify(exercises));
+                localStorage.setItem('chineseGrammar', JSON.stringify(grammar));
+                localStorage.setItem('chineseVocabulary', JSON.stringify(vocabulary));
+                localStorage.setItem('chineseMaterials', JSON.stringify(materials));
+                
+                // Ricarica la sezione corrente
+                const currentSection = document.querySelector('.nav-btn.text-red-600').id.replace('nav-', '');
+                loadSectionContent(currentSection);
+                
+                // Chiudi il modal e mostra successo
+                document.querySelector('.fixed').remove();
+                showSuccessMessage(`Dati importati con successo! ${mode === 'replace' ? 'Tutti i dati sono stati sostituiti.' : 'I nuovi contenuti sono stati aggiunti.'}`);
+                
+            } catch (error) {
+                showErrorMessage('Codice non valido. Verifica di aver copiato tutto il codice correttamente.');
+            }
+        }
+
+        function importFromFile(input) {
+            const file = input.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('import-code').value = e.target.result;
+            };
+            reader.readAsText(file);
+        }
+
+        function showSuccessMessage(message) {
+            const notification = document.createElement('div');
+            notification.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 fade-in';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 4000);
+        }
+
+        function showErrorMessage(message) {
+            const notification = document.createElement('div');
+            notification.className = 'fixed top-4 right-4 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 fade-in';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 4000);
+        }
+
+        // Inizializza con la sezione esercizi
+        showSection('esercizi');
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'99141e6f87ccedb7',t:'MTc2MDkxNzIwOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
